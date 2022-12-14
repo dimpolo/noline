@@ -15,10 +15,10 @@ use crate::line_buffer::UnboundedBuffer;
 #[cfg(any(test, feature = "alloc", feature = "std"))]
 use crate::history::UnboundedHistory;
 
-#[cfg(any(test, doc, feature = "tokio"))]
+#[cfg(any(test, feature = "tokio"))]
 use ::tokio::io::{AsyncReadExt, AsyncWriteExt};
 
-#[cfg(any(test, doc, feature = "tokio"))]
+#[cfg(any(test, feature = "tokio"))]
 use crate::no_sync;
 
 /// Builder for [`sync::Editor`] and [`no_sync::tokio::Editor`].
@@ -106,7 +106,7 @@ impl<B: Buffer, H: History> EditorBuilder<B, H> {
         sync::Editor::new(io)
     }
 
-    #[cfg(any(test, doc, feature = "tokio"))]
+    #[cfg(any(test, feature = "tokio"))]
     /// Build [`no_sync::tokio::Editor`]. Is equivalent of calling [`no_sync::tokio::Editor::new()`].
     pub async fn build_async_tokio<W: AsyncWriteExt + Unpin, R: AsyncReadExt + Unpin>(
         self,

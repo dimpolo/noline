@@ -1,6 +1,6 @@
 //! Line editor for async IO
 
-#[cfg(any(test, doc, feature = "tokio"))]
+#[cfg(any(test, feature = "tokio"))]
 pub mod tokio {
     //! Implementation for tokio
 

@@ -60,7 +60,7 @@
 
 #![no_std]
 
-#[cfg(any(test, doc, feature = "std"))]
+#[cfg(any(test, feature = "std"))]
 #[macro_use]
 extern crate std;
 pub mod builder;

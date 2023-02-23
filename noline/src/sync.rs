@@ -13,7 +13,7 @@ use crate::line_buffer::{Buffer, LineBuffer};
 use crate::complete::Completer;
 use crate::core::{Initializer, InitializerResult, Line};
 use crate::output::{Output, OutputItem};
-use crate::terminal::Terminal;
+use crate::terminal::{Cursor, Terminal};
 
 /// Trait for reading bytes from input
 pub trait Read {
@@ -74,6 +74,16 @@ where
             history: H::default(),
             _marker: PhantomData,
         })
+    }
+
+    /// Create and initialize line editor with a known size
+    pub fn new_with_size(rows: usize, colums: usize) -> Self {
+        Self {
+            buffer: LineBuffer::new(),
+            terminal: Terminal::new(rows, colums, Cursor::new(0, 0)),
+            history: H::default(),
+            _marker: PhantomData,
+        }
     }
 
     fn handle_output<'b>(output: Output<'b, B>, io: &mut IO) -> Result<Option<()>, Error<RE, WE>> {
